@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  limit?: number;
+  showMoreLink?: boolean;
+}
+
+const { limit, showMoreLink = false } = Astro.props;
+
+let works = await getCollection('works');
+works = works.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+if (limit) {
+  works = works.slice(0, limit);
+}
+---
+
+<section class="works-section">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    {
+      works.map((work) => (
+        <a
+          href={work.data.url}
+          target="_blank"
+          rel="noopener"
+          class="group block hover:no-underline"
+        >
+          <div class="aspect-video overflow-hidden rounded-2xl mb-4 border-2 border-c-blue-200">
+            <img
+              src={work.data.image.url}
+              alt={work.data.image.alt}
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <h3 class="text-md font-medium text-gray-800 mb-2">{work.data.title}</h3>
+          <span class="text-gray-400 text-sm/5 block">{work.data.description}</span>
+        </a>
+      ))
+    }
+  </div>
+
+  {
+    showMoreLink && works.length >= (limit || 0) && (
+      <div class="mt-12 text-center">
+        <a
+          href="/works"
+          class="inline-block px-6 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:border-gray-900 transition-colors"
+        >
+          Read more
+        </a>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .works-section a:hover {
+    text-decoration: none;
+  }
+</style>

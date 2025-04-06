@@ -1,0 +1,61 @@
+---
+// Define the props interface for the component
+export interface Props {
+  posts: Array<{
+    title: string;
+    date: Date;
+    slug: string;
+    tags?: string[];
+    isZenn?: boolean;
+    isExternal?: boolean;
+    url: string;
+  }>;
+  showMoreLink?: boolean;
+  moreLink?: string;
+}
+
+// Destructure props with defaults
+const { 
+  posts = [], 
+  showMoreLink = false,
+  moreLink = "/posts"
+} = Astro.props;
+---
+
+<div class="flex flex-col gap-2">
+  {posts.map((post) => (
+    <article class="pb-3">
+      <h2 class="font-semibold">
+        <a 
+          href={post.url} 
+          class="hover:text-indigo-600 transition-colors"
+          target={(post.isZenn || post.isExternal) ? "_blank" : "_self"} 
+          rel={(post.isZenn || post.isExternal) ? "noopener noreferrer" : ""}
+        >
+          {post.title}
+        </a>
+      </h2>
+      <div class="mb-1 flex items-center">
+        <span class="text-sm text-zinc-500">{post.date.toLocaleDateString('ja-JP')}</span>
+        {(post.isZenn || post.isExternal) && (
+          <span class="text-xs font-medium bg-[#3ea8ff] px-2 py-0.5 rounded-full ml-2 justify-center text-custom-white">zenn</span>
+        )}
+      </div>
+    </article>
+  ))}
+
+  {posts.length === 0 && (
+    <div class="text-center py-12">
+      <h2 class="text-xl font-bold">まだ記事がありません</h2>
+      <p class="mt-2">また後ほどお越しください。</p>
+    </div>
+  )}
+
+  {showMoreLink && posts.length > 0 && (
+    <div class="text-center">
+      <a href={moreLink} class="inline-block mt-4 px-6 py-3 font-mplus-rounded">
+        see all posts →
+      </a>
+    </div>
+  )}
+</div>

@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo/takumi.png";
+---
+
+<header class="py-2 border-b border-blue-gray bg-white">
+  <div class="max-w-2xl mx-auto flex justify-between items-center px-8">
+    <div class="logo">
+      <a href="/" class="block font-mplus-rounded font-semibold text-2xl text-gray-800">
+        takumi
+      </a>
+    </div>
+    <nav>
+      <ul class="flex gap-8">
+        <li><a href="/works/" class="transition-colors duration-200 font-mplus-rounded">
+          Works
+        </a></li>
+        <li><a href="/posts/" class="transition-colors duration-200 font-mplus-rounded">
+          Posts
+        </a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@theme {
+  --font-mplus-rounded: 'M PLUS Rounded 1c', sans-serif;
+  --color-text-body: rgb(63 63 70 / 1);
+  --color-text-heading: rgb(39 39 42 / 1);
+  --color-custom-white: rgb(255 255 255 / 1);
+  --color-blue-gray: #e4edf4;
+  --color-c-blue-200: #ecf5ff;
+}
+
+/* CSS Variables for colors */
+:root {
+  --text-color-body: rgb(63 63 70 / 1);
+  --text-color-heading: rgb(39 39 42 / 1);
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-size: 1rem;
+}
+
+/* Text colors for paragraphs and headings */
+p, li, div {
+  color: var(--text-color-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color-heading);
+}
+
+/* Ensure article text is consistent with requested sizing */
+p{
+  font-size: 1rem;
+}
+

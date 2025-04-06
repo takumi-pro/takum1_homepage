@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { getCollection } from 'astro:content';
+import { getZennPosts } from '../data/zenn-posts';
+
+// 統合された記事の型定義
+type CombinedPost = {
+  title: string;
+  date: Date;
+  slug: string;
+  tags?: string[];
+  isZenn: boolean;
+  url: string;
+};
+
+// コンテンツコレクションから記事を取得
+const posts = await getCollection('blog');
+
+// ローカル記事を変換
+const localPosts: CombinedPost[] = posts.map(post => ({
+  title: post.data.title,
+  date: post.data.pubDate,
+  slug: post.slug,
+  tags: post.data.tags,
+  isZenn: false,
+  url: `/posts/${post.slug}`
+}));
+
+// zenn-posts.tsからZenn記事を取得 (非同期関数を呼び出し)
+const zennPosts = await getZennPosts();
+const zennCombinedPosts: CombinedPost[] = zennPosts.map(post => ({
+  title: post.title,
+  date: post.pubDate,
+  slug: post.slug,
+  tags: [], // タグ情報がない場合は空配列
+  isZenn: true,
+  url: post.url
+}));
+
+// すべての記事を統合し、日付順にソート
+const allPosts = [...localPosts, ...zennCombinedPosts].sort((a, b) => 
+  b.date.getTime() - a.date.getTime()
+);
+---
+
+<Layout title="ブログ記事一覧">
+  <main class="max-w-4xl mx-auto py-10 px-4">
+    <PostList posts={allPosts} />
+  </main>
+</Layout>

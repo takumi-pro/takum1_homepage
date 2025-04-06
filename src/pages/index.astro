@@ -1,11 +1,99 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import WorksList from '../components/WorksList.astro';
+import { Image } from "astro:assets";
+import { getCollection } from 'astro:content';
+import logoImg from "../assets/logo/takumi.png";
+import { getZennPosts } from '../data/zenn-posts';
+import { Icon } from 'astro-icon/components'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// ローカルのブログ記事を取得
+const allLocalPosts = await getCollection('blog');
+const localPosts = allLocalPosts.map(post => ({
+  title: post.data.title,
+  slug: post.slug,
+  date: post.data.pubDate,
+  url: `/posts/${post.slug}`,
+  isExternal: false
+}));
+
+// Zennの記事を取得 (非同期関数を呼び出し)
+const zennPosts = await getZennPosts();
+const zennFormattedPosts = zennPosts.map(post => ({
+  ...post,
+  date: post.pubDate,
+  isExternal: true,
+  isZenn: true
+}));
+
+// すべての記事を結合して日付順に並べ替え、上位5件を取得
+const allPosts = [...localPosts, ...zennFormattedPosts]
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 5);
+
+const birthDate = new Date('1999-09-27');
+const today = new Date();
+const ageByYear = today.getFullYear() - birthDate.getFullYear();
+const monthDiff = today.getMonth() - birthDate.getMonth();
+const dayDiff = today.getDate() - birthDate.getDate();
+const isBirthdayPassed = monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0);
+const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 ---
 
 <Layout>
-	<Welcome />
-</Layout>
+	<!-- 自己紹介セクション -->
+	<section class="mb-8 py-8 px-4">
+		<div class="items-center">
+			<div class="mb-2">
+				<div class="">
+					<Image src={logoImg} alt="Takum1" width="80" height="80" class="object-cover border border-blue-gray rounded-full" />
+				</div>
+			</div>
+			<div class="text-left">
+				<h2 class="text-2xl font-bold leading-tight"
+				>
+					takumi
+				</h2>
+				<span class="font-medium block mb-2">Software Engineer / {age} years old / Tokyo, Japan</span>
+				<div class="text-xl flex gap-2">
+					<a href="https://github.com/takumi-pro" target="_blank">
+						<Icon class="hover:cursor-pointer" name="uiw:github"/>
+					</a>
+					<a href="https://x.com/takumidiary" target="_blank">
+						<Icon class="hover:cursor-pointer" name="prime:twitter" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mb-8 py-8 px-4">
+		<div class="flex justify-between items-center mb-4">
+			<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">About</h2>
+		</div>
+		<div class="text-left">
+			<p class="text-gray-600 mb-4 mt-4">
+				東京都を拠点にするソフトウェアエンジニアのtakumiです。toB Saasのプロダクト開発を行っています。技術を手段として事業貢献することはもちろんですが、ただの手段ではなく、技術の仕組みを理解し裏側を知ること自体を楽しむことが好きです。
+			</p>
+		</div>
+	</section>
+
+	<!-- 最新作品セクション -->
+	<section class="mt-8 py-8 px-4">
+		<div class="flex justify-between items-center mb-4">
+		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Works</h2>
+		</div>
+	
+		<WorksList limit={4} showMoreLink={true} />
+	</section>
+	
+	<!-- 最新記事セクション -->
+	<section class="mt-8 px-4">
+		<div class="flex justify-between items-center mb-4">
+		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Posts</h2>
+		</div>
+	
+		<PostList posts={allPosts} showMoreLink={true} moreLink="/posts" />
+	</section>
+	</Layout>
