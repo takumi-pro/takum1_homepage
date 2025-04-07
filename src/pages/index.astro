@@ -4,7 +4,7 @@ import PostList from '../components/PostList.astro';
 import WorksList from '../components/WorksList.astro';
 import { Image } from "astro:assets";
 import { getCollection } from 'astro:content';
-import logoImg from "../assets/logo/takumi.png";
+import logoImg from "../assets/logo/takumi_prof.jpg";
 import { getZennPosts } from '../data/zenn-posts';
 import { Icon } from 'astro-icon/components'
 
@@ -43,11 +43,11 @@ const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 
 <Layout>
 	<!-- 自己紹介セクション -->
-	<section class="mb-8 py-8 px-4">
+	<section class="mb-8 pt-8 px-4">
 		<div class="items-center">
 			<div class="mb-2">
 				<div class="">
-					<Image src={logoImg} alt="Takum1" width="80" height="80" class="object-cover border border-blue-gray rounded-full" />
+					<Image src={logoImg} alt="takumi's photo" width="120" height="120" class="object-cover border border-blue-gray rounded-full" />
 				</div>
 			</div>
 			<div class="text-left">
@@ -68,7 +68,7 @@ const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 		</div>
 	</section>
 
-	<section class="mb-8 py-8 px-4">
+	<section class="mb-8 pt-8 px-4">
 		<div class="flex justify-between items-center mb-4">
 			<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">About</h2>
 		</div>
@@ -79,8 +79,17 @@ const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 		</div>
 	</section>
 
+	<!-- career -->
+	<section class="mt-8 pt-8 px-4">
+		<div class="flex justify-between items-center mb-4">
+		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Career</h2>
+		</div>
+	
+		<p>in progress...</p>
+	</section>
+
 	<!-- 最新作品セクション -->
-	<section class="mt-8 py-8 px-4">
+	<section class="mt-8 pt-8 px-4">
 		<div class="flex justify-between items-center mb-4">
 		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Works</h2>
 		</div>
@@ -89,11 +98,26 @@ const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 	</section>
 	
 	<!-- 最新記事セクション -->
-	<section class="mt-8 px-4">
+	<section class="mt-8 pt-8 px-4">
 		<div class="flex justify-between items-center mb-4">
 		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Posts</h2>
 		</div>
 	
 		<PostList posts={allPosts} showMoreLink={true} moreLink="/posts" />
 	</section>
+
+	<!-- 最新記事セクション -->
+	<!-- <section class="mt-8 pt-8 px-4">
+		<div class="flex justify-between items-center mb-4">
+		<h2 class="text-2xl font-bold text-gray-800 font-mplus-rounded underline">Accounts</h2>
+		</div>
+	
+		<div class="flex gap-1 flex-col">
+			<a class="flex gap-2 items-center cursor-pointer" href="">GitHub<Icon name="uiw:github" /></a>
+			<a class="flex gap-2 items-center cursor-pointer" href="">X(Twitter)<Icon name="prime:twitter" /></a>
+			<a class="flex gap-2 items-center cursor-pointer" href="">Zenn</a>
+			<a class="flex gap-2 items-center cursor-pointer" href="">Lapras</a>
+			<a class="flex gap-2 items-center cursor-pointer" href="">AtCoder</a>
+		</div>
+	</section> -->
 	</Layout>
