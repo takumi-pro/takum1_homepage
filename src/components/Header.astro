@@ -1,6 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import logoImg from "../assets/logo/takumi.png";
+import DropdownMenu from './ui/DropdownMenu.astro';
+
+const menuItems = [
+  { label: 'About', href: '/about/' },
+  { label: 'Works', href: '/works/' },
+  { label: 'Posts', href: '/posts/' },
+];
 ---
 
 <header class="py-2 border-b border-blue-gray bg-white">
@@ -10,8 +15,15 @@ import logoImg from "../assets/logo/takumi.png";
         takumi
       </a>
     </div>
-    <nav>
-      <ul class="flex gap-8">
+    <!-- Mobile menu button -->
+    <DropdownMenu
+      class:list={"hidden md:hidden"}
+      itemClass='text-lg'
+      items={menuItems}
+    />
+    <!-- Desktop navigation -->
+    <nav class="hidden md:block">
+      <ul class="flex gap-8 items-center">
         <li><a href="/about/" class="transition-colors duration-200 font-mplus-rounded">
           About
         </a></li>
@@ -25,3 +37,16 @@ import logoImg from "../assets/logo/takumi.png";
     </nav>
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

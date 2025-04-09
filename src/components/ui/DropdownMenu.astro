@@ -1,0 +1,103 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  items: {
+    label: string;
+    href: string;
+  }[];
+  buttonClass?: string;
+  menuClass?: string;
+  itemClass?: string;
+  class?: string;
+}
+
+const {
+  items = [],
+  buttonClass = "",
+  menuClass = "",
+  itemClass = "",
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={className} class="relative inline-block text-left dropdown-container">
+    <div>
+      <button 
+        type="button" 
+        class=`cursor-pointer inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 ${buttonClass}` 
+        id="menu-button" 
+        aria-expanded="false" 
+        aria-haspopup="true"
+      >
+        <Icon
+            name="charm:menu-hamburger"
+            size={20}
+        />
+      </button>
+    </div>
+  
+    <div 
+      class=`absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white ring-1 shadow-lg ring-black/5 focus:outline-hidden dropdown-menu opacity-0 invisible transition-all duration-200 ease-in-out transform scale-95 ${menuClass}` 
+      role="menu" 
+      aria-orientation="vertical" 
+      aria-labelledby="menu-button" 
+      tabindex="-1"
+    >
+      <div class="py-1" role="none">
+        {items.map((item) => (
+            <a 
+              href={item.href} 
+              class={`hover:bg-gray-50 font-mplus-rounded block px-4 py-2 text-lg text-gray-700 ${itemClass}`}
+              role="menuitem" 
+              tabindex="-1"
+            >
+              {item.label}
+            </a>
+          ))}
+      </div>
+    </div>
+</div>
+
+<style>
+  .dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(100%);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownContainers = document.querySelectorAll('.dropdown-container');
+    
+    dropdownContainers.forEach(container => {
+      const button = container.querySelector('#menu-button');
+      const menu = container.querySelector('.dropdown-menu');
+      
+      // Toggle dropdown when button is clicked
+      button?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle the current dropdown
+        button.setAttribute('aria-expanded', (!isExpanded).toString());
+        
+        // Apply animation classes instead of just hiding/showing
+        if (!isExpanded) {
+          menu?.classList.add('open');
+        } else {
+          menu?.classList.remove('open');
+        }
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (event) => {
+        if (!container.contains(event.target as Node)) {
+          button?.setAttribute('aria-expanded', 'false');
+          menu?.classList.remove('open');
+        }
+      });
+    });
+  });
+</script>
