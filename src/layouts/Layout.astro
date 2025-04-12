@@ -8,7 +8,7 @@ import "@fontsource/m-plus-rounded-1c/700.css";
 
 // Get current URL for OGP tags
 const canonicalURL = new URL(Astro.url.pathname, "https://takumidiary.com");
-const ogImageURL = new URL("/takumi_prof.jpg", Astro.site);
+const ogImageURL = new URL("/takumi_prof.jpg", canonicalURL);
 ---
 
 <!doctype html>
