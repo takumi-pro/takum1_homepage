@@ -2,9 +2,13 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import '@fontsource/m-plus-rounded-1c/400.css';
-import '@fontsource/m-plus-rounded-1c/500.css';
-import '@fontsource/m-plus-rounded-1c/700.css';
+import "@fontsource/m-plus-rounded-1c/400.css";
+import "@fontsource/m-plus-rounded-1c/500.css";
+import "@fontsource/m-plus-rounded-1c/700.css";
+
+// Get current URL for OGP tags
+const canonicalURL = new URL(Astro.url.pathname, "https://takumidiary.com");
+const ogImageURL = new URL("/takumi_prof.jpg", Astro.site);
 ---
 
 <!doctype html>
@@ -14,14 +18,23 @@ import '@fontsource/m-plus-rounded-1c/700.css';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/x-icon" href="/takumi_prof_fabicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="takumiの個人サイト" />
+		<meta name="description" content="東京都を拠点にするソフトウェアエンジニアのtakumiです。toB Saasのプロダクト開発を行っています。" />
 		<meta name="author" content="takumi" />
-		<meta name="keywords" content="takumi, engineer, software" />
-		<meta property="og:title" content="takumi" />
-		<meta property="og:description" content="takumiの個人サイト" />
-		<meta property="og:image" content="/assets/logo/takumi_prof.jpg" />
+		<meta name="keywords" content="takumi, engineer, software, development, tokyo" />
+		
+		<!-- Open Graph Protocol -->
+		<meta property="og:site_name" content="takumi's Website" />
+		<meta property="og:title" content="takumi - Software Engineer" />
+		<meta property="og:description" content="東京都を拠点にするソフトウェアエンジニアのtakumiです。toB Saasのプロダクト開発を行っています。" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageURL} />
 		<meta property="og:type" content="website" />
-		<title>takumi</title>
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@takumidiary" />
+		<meta name="twitter:creator" content="@takumidiary" />
+		<title>takumi - Software Engineer</title>
 		<!-- Import M PLUS Rounded 1c font from Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
