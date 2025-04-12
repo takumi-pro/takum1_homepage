@@ -1,25 +1,21 @@
 ---
 // Define the props interface for the component
 export interface Props {
-  posts: Array<{
-    title: string;
-    date: Date;
-    slug: string;
-    tags?: string[];
-    isZenn?: boolean;
-    isExternal?: boolean;
-    url: string;
-  }>;
-  showMoreLink?: boolean;
-  moreLink?: string;
+	posts: Array<{
+		title: string;
+		date: Date;
+		slug: string;
+		tags?: string[];
+		isZenn?: boolean;
+		isExternal?: boolean;
+		url: string;
+	}>;
+	showMoreLink?: boolean;
+	moreLink?: string;
 }
 
 // Destructure props with defaults
-const { 
-  posts = [], 
-  showMoreLink = false,
-  moreLink = "/posts"
-} = Astro.props;
+const { posts = [], showMoreLink = false, moreLink = "/posts" } = Astro.props;
 ---
 
 <div class="flex flex-col gap-2">

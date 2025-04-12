@@ -22,10 +22,7 @@ if (limit) {
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
     {
       works.map((work) => (
-        <a
-          href={work.data.url}
-          target="_blank"
-          rel="noopener"
+        <div
           class="group block hover:no-underline cursor-pointer"
         >
           <div class="aspect-video overflow-hidden rounded-2xl mb-4 border-2 border-c-blue-200 shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -37,7 +34,7 @@ if (limit) {
           </div>
           <h3 class="text-md font-medium text-gray-800 mb-2">{work.data.title}</h3>
           <span class="text-gray-500 text-sm/5 block">{work.data.description}</span>
-        </a>
+        </div>
       ))
     }
   </div>
