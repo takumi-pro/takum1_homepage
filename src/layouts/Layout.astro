@@ -7,8 +7,8 @@ import "@fontsource/m-plus-rounded-1c/500.css";
 import "@fontsource/m-plus-rounded-1c/700.css";
 
 // Get current URL for OGP tags
-const canonicalURL = new URL(Astro.url.pathname, "https://takumidiary.com");
-const ogImageURL = new URL("/takumi_prof.jpg", canonicalURL);
+// const canonicalURL = new URL(Astro.url.pathname, "https://takumidiary.com");
+// const ogImageURL = new URL("/takumi_prof.jpg", canonicalURL);
 ---
 
 <!doctype html>
@@ -26,14 +26,15 @@ const ogImageURL = new URL("/takumi_prof.jpg", canonicalURL);
 		<meta property="og:site_name" content="takumi's Website" />
 		<meta property="og:title" content="takumi - Software Engineer" />
 		<meta property="og:description" content="東京都を拠点にするソフトウェアエンジニアのtakumiです。toB Saasのプロダクト開発を行っています。" />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:url" content="https://takumidiary.com" />
+		<meta property="og:image" content="https://takumidiary.com/takumi_prof.jpg" />
 		<meta property="og:type" content="website" />
 		
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@takumidiary" />
 		<meta name="twitter:creator" content="@takumidiary" />
+		<meta name="twitter:image" content="https://takumidiary.com/takumi_prof.jpg" />
 		<title>takumi - Software Engineer</title>
 		<!-- Import M PLUS Rounded 1c font from Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
