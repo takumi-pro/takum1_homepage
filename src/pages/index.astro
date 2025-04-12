@@ -1,38 +1,38 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostList from '../components/PostList.astro';
-import WorksList from '../components/WorksList.astro';
+import Layout from "../layouts/Layout.astro";
+import PostList from "../components/PostList.astro";
+import WorksList from "../components/WorksList.astro";
 import { Image } from "astro:assets";
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import logoImg from "../assets/logo/takumi_prof.jpg";
-import { getZennPosts } from '../data/zenn-posts';
-import { Icon } from 'astro-icon/components'
+import { getZennPosts } from "../data/zenn-posts";
+import { Icon } from "astro-icon/components";
 
 // ローカルのブログ記事を取得
-const allLocalPosts = await getCollection('blog');
-const localPosts = allLocalPosts.map(post => ({
-  title: post.data.title,
-  slug: post.slug,
-  date: post.data.pubDate,
-  url: `/posts/${post.slug}`,
-  isExternal: false
+const allLocalPosts = await getCollection("blog");
+const localPosts = allLocalPosts.map((post) => ({
+	title: post.data.title,
+	slug: post.slug,
+	date: post.data.pubDate,
+	url: `/posts/${post.slug}`,
+	isExternal: false,
 }));
 
 // Zennの記事を取得 (非同期関数を呼び出し)
 const zennPosts = await getZennPosts();
-const zennFormattedPosts = zennPosts.map(post => ({
-  ...post,
-  date: post.pubDate,
-  isExternal: true,
-  isZenn: true
+const zennFormattedPosts = zennPosts.map((post) => ({
+	...post,
+	date: post.pubDate,
+	isExternal: true,
+	isZenn: true,
 }));
 
 // すべての記事を結合して日付順に並べ替え、上位5件を取得
 const allPosts = [...localPosts, ...zennFormattedPosts]
-  .sort((a, b) => b.date.getTime() - a.date.getTime())
-  .slice(0, 5);
+	.sort((a, b) => b.date.getTime() - a.date.getTime())
+	.slice(0, 5);
 
-const birthDate = new Date('1999-09-27');
+const birthDate = new Date("1999-09-27");
 const today = new Date();
 const ageByYear = today.getFullYear() - birthDate.getFullYear();
 const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -57,10 +57,10 @@ const age = isBirthdayPassed ? ageByYear : ageByYear - 1;
 				</h2>
 				<span class="font-medium block mb-2">Software Engineer / {age} years old / Tokyo, Japan</span>
 				<div class="text-xl flex gap-2">
-					<a href="https://github.com/takumi-pro" target="_blank">
+					<a href="https://github.com/takumi-pro" target="_blank" aria-label="GitHub">
 						<Icon class="hover:cursor-pointer" name="uiw:github"/>
 					</a>
-					<a href="https://x.com/takumidiary" target="_blank">
+					<a href="https://x.com/takumidiary" target="_blank" aria-label="X(Twitter)">
 						<Icon class="hover:cursor-pointer" name="prime:twitter" />
 					</a>
 				</div>

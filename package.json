@@ -10,6 +10,7 @@
     "create-post": "ts-node scripts/create-post.ts"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
     "@fontsource/m-plus-rounded-1c": "^5.2.5",
     "@iconify-json/charm": "^1.2.2",
     "@tailwindcss/vite": "^4.1.3",

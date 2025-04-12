@@ -1,18 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
 interface Props {
-  limit?: number;
-  showMoreLink?: boolean;
+	limit?: number;
+	showMoreLink?: boolean;
 }
 
 const { limit, showMoreLink = false } = Astro.props;
 
-let works = await getCollection('works');
-works = works.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+let works = await getCollection("works");
+works = works.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 
 if (limit) {
-  works = works.slice(0, limit);
+	works = works.slice(0, limit);
 }
 ---
 
@@ -34,7 +36,7 @@ if (limit) {
             />
           </div>
           <h3 class="text-md font-medium text-gray-800 mb-2">{work.data.title}</h3>
-          <span class="text-gray-400 text-sm/5 block">{work.data.description}</span>
+          <span class="text-gray-500 text-sm/5 block">{work.data.description}</span>
         </a>
       ))
     }

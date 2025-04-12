@@ -2,22 +2,22 @@
 import { Icon } from "astro-icon/components";
 
 interface Props {
-  items: {
-    label: string;
-    href: string;
-  }[];
-  buttonClass?: string;
-  menuClass?: string;
-  itemClass?: string;
-  class?: string;
+	items: {
+		label: string;
+		href: string;
+	}[];
+	buttonClass?: string;
+	menuClass?: string;
+	itemClass?: string;
+	class?: string;
 }
 
 const {
-  items = [],
-  buttonClass = "",
-  menuClass = "",
-  itemClass = "",
-  class: className,
+	items = [],
+	buttonClass = "",
+	menuClass = "",
+	itemClass = "",
+	class: className,
 } = Astro.props;
 ---
 
@@ -29,6 +29,7 @@ const {
         id="menu-button" 
         aria-expanded="false" 
         aria-haspopup="true"
+        aria-label="Menu"
       >
         <Icon
             name="charm:menu-hamburger"
