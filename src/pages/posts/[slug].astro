@@ -1,13 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+	const blogEntries = await getCollection("blog");
+	return blogEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
 }
 
 const { entry } = Astro.props;
@@ -18,7 +18,7 @@ const { title, pubDate, tags, author, image } = entry.data;
 <Layout title={title}>
   <main class="container mx-auto py-8">
     <article class="prose mx-auto max-w-3xl">
-      <a href="/posts/blog" class="text-blue-500 hover:underline mb-4 inline-block">
+      <a href="/posts" class="text-blue-500 hover:underline mb-4 inline-block">
         ← 記事一覧に戻る
       </a>
       
@@ -27,14 +27,14 @@ const { title, pubDate, tags, author, image } = entry.data;
       <div class="flex items-center gap-2 text-gray-600 mb-6">
         <span class="text-sm text-gray-500">{pubDate.toLocaleDateString('ja-JP')}</span>
       </div>
-      
+<!--       
       {image && (
         <img
           src={image.url}
           alt={image.alt}
           class="mb-6 rounded-lg shadow-md max-h-72 object-cover w-full"
         />
-      )}
+      )} -->
       
       <div class="mb-6 flex gap-2">
         {tags.map((tag) => (
