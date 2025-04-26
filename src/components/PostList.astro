@@ -5,7 +5,7 @@ export interface Props {
 		title: string;
 		date: Date;
 		slug: string;
-		tags?: string[];
+		categories?: string[];
 		isZenn?: boolean;
 		isExternal?: boolean;
 		url: string;
@@ -31,10 +31,24 @@ const { posts = [], showMoreLink = false, moreLink = "/posts" } = Astro.props;
           {post.title}
         </a>
       </h2>
-      <div class="mb-1 flex items-center">
+      <div class="mb-1 flex items-center flex-wrap gap-2">
         <span class="text-sm text-zinc-500">{post.date.toLocaleDateString('ja-JP')}</span>
         {(post.isZenn || post.isExternal) && (
-          <span class="text-xs font-medium bg-[#3ea8ff] px-2 py-0.5 rounded-full ml-2 justify-center text-custom-white">zenn</span>
+          <span class="text-xs font-medium bg-[#3ea8ff] px-2 py-0.5 rounded-full justify-center text-custom-white">zenn</span>
+        )}
+        {!post.isZenn && post.categories && (
+          <>
+            {post.categories.slice(0, 3).map((category) => (
+              <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
+                {category}
+              </span>
+            ))}
+            {post.categories.length > 3 && (
+              <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
+                ...
+              </span>
+            )}
+          </>
         )}
       </div>
     </article>

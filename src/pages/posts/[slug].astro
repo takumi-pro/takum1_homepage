@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, pubDate, tags, author, image } = entry.data;
+const { title, pubDate, description, categories } = entry.data;
 ---
 
 <Layout title={title}>
@@ -24,9 +24,11 @@ const { title, pubDate, tags, author, image } = entry.data;
       
       <h1 class="text-3xl font-bold mt-4">{title}</h1>
       
-      <div class="flex items-center gap-2 text-gray-600 mb-6">
-        <span class="text-sm text-gray-500">{pubDate.toLocaleDateString('ja-JP')}</span>
-      </div>
+      {pubDate && (
+        <div class="flex items-center gap-2 text-gray-600 mb-6">
+          <span class="text-sm text-gray-500">{pubDate.toLocaleDateString('ja-JP')}</span>
+        </div>
+      )}
 <!--       
       {image && (
         <img
@@ -36,13 +38,15 @@ const { title, pubDate, tags, author, image } = entry.data;
         />
       )} -->
       
-      <div class="mb-6 flex gap-2">
-        {tags.map((tag) => (
-          <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-sm">
-            {tag}
-          </span>
-        ))}
-      </div>
+      {categories && categories.length > 0 && (
+        <div class="mb-6 flex gap-2">
+          {categories.map((category) => (
+            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-sm">
+              {category}
+            </span>
+          ))}
+        </div>
+      )}
       
       <div class="content text-text-body">
         <Content />

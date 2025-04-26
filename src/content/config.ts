@@ -4,7 +4,7 @@ import { rssSchema } from "@astrojs/rss";
 // ブログコレクションのスキーマを定義
 const blogCollection = defineCollection({
 	schema: rssSchema.extend({
-		tags: z.array(z.string()).optional(),
+		categories: z.array(z.string()).optional(),
 	}),
 	// schema: z.object({
 	//   title: z.string(),

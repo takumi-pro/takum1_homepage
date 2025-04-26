@@ -22,6 +22,7 @@ export async function GET(context) {
 			pubDate: post.data.pubDate,
 			description: post.data.description,
 			link: `/posts/${post.slug}/`,
+			categories: post.data.categories,
 			// content: sanitizeHtml(parser.render(post.body)),
 			// stylesheet: "/rss/styles.xsl",
 			// Optional: include author if available
