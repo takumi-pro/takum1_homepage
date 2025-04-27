@@ -10,7 +10,7 @@ categories: ["Rails", "Ruby", "Docker", "コンテナ"]
 ---
 
 Dockerfile作成
-```Dockerfile
+```dockerfile
 FROM ruby:3.4.2-slim
 ```
 
