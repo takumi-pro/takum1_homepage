@@ -1,12 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
+import fs from "fs";
+import path from "path";
+import crypto from "crypto";
 
 // 設定
-const POSTS_DIR = path.join(process.cwd(), 'src/content/blog');
+const POSTS_DIR = path.join(process.cwd(), "src/content/blog");
 
 // slugを生成 (crypto.randomBytesを使用)
-const randomSlug = crypto.randomBytes(7).toString('hex');
+const randomSlug = crypto.randomBytes(7).toString("hex");
 
 // ファイル名を作成
 const fileName = `${randomSlug}.md`;
@@ -14,7 +14,7 @@ const filePath = path.join(POSTS_DIR, fileName);
 
 // 現在の日時を取得
 const now = new Date();
-const formattedDate = now.toISOString().split('T')[0]; // YYYY-MM-DD 形式
+const formattedDate = now.toISOString().split("T")[0]; // YYYY-MM-DD 形式
 
 // フロントマターを含む記事テンプレート
 const template = `---
@@ -25,7 +25,7 @@ author: "Takumi"
 image:
   url: "/blog-placeholder-1.jpg"
   alt: "ブログのプレースホルダー画像"
-tags: []
+categories: []
 ---
 
 ここに記事の内容を書きます。
@@ -33,7 +33,7 @@ tags: []
 
 // ディレクトリが存在するか確認し、なければ作成
 if (!fs.existsSync(POSTS_DIR)) {
-  fs.mkdirSync(POSTS_DIR, { recursive: true });
+	fs.mkdirSync(POSTS_DIR, { recursive: true });
 }
 
 // ファイルを書き込む
