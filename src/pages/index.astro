@@ -16,6 +16,7 @@ const localPosts = allLocalPosts.map((post) => ({
 	date: post.data.pubDate,
 	url: `/posts/${post.slug}`,
 	isExternal: false,
+	categories: post.data.categories,
 }));
 
 // Zennの記事を取得 (非同期関数を呼び出し)
