@@ -214,7 +214,7 @@ rails s -b 0.0.0.0 -p 3000
 
 アクセスするとNotEstablishedエラー
 mysqlは別コンテナで動かす想定なのでOK
-[https://scrapbox.io/files/67c2a32aa0d3be108fa28b3c.png]
+![](<../../assets/スクリーンショット 2025-04-27 11.37.32.png>)
 
 ## Dockerfile作成
 上記を参考にしてDockerfile作っていく
@@ -297,6 +297,6 @@ Overwrite /app/Gemfile? (enter "h" for help) [Ynaqdhm] Y
 Gemfileが更新されたため再度bundle installするためにdocker compose build
 その後にdocker compose up -dでlocalhost:3000にアクセスすると以下の画面
 
-[https://scrapbox.io/files/67c2b75a47461a24306c4213.png]
+![alt text](<../../assets/スクリーンショット 2025-04-27 11.37.13.png>)
 
 🎉🎉🎉🎉
