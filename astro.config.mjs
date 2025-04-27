@@ -17,7 +17,7 @@ export default defineConfig({
 	markdown: {
 		syntaxHighlight: {
 			type: "shiki",
-			excludeLangs: ["mermaid", "plaintext", "Dockerfile", "gemfile"],
+			excludeLangs: ["plaintext", "Dockerfile", "gemfile", "mermaid", "js"],
 		},
 		rehypePlugins: [rehypeMermaid],
 	},
