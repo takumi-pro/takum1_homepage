@@ -9,6 +9,7 @@ export interface Props {
 		isZenn?: boolean;
 		isExternal?: boolean;
 		url: string;
+		ai_generated?: boolean; // AI生成フラグを追加
 	}>;
 	showMoreLink?: boolean;
 	moreLink?: string;
@@ -36,20 +37,26 @@ const { posts = [], showMoreLink = false, moreLink = "/posts" } = Astro.props;
         {(post.isZenn || post.isExternal) && (
           <span class="text-xs font-medium bg-[#3ea8ff] px-2 py-0.5 rounded-full justify-center text-custom-white">zenn</span>
         )}
-        {!post.isZenn && post.categories && (
-          <>
-            {post.categories.slice(0, 3).map((category) => (
-              <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
-                {category}
-              </span>
-            ))}
-            {post.categories.length > 3 && (
-              <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
-                ...
-              </span>
-            )}
-          </>
-        )}
+       {/* AI生成ラベル */}
+       {post.ai_generated && (
+         <span class="text-xs font-medium bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full justify-center">
+           AI Generated
+         </span>
+       )}
+       {!post.isZenn && post.categories && (
+         <>
+           {post.categories.slice(0, 3).map((category) => (
+             <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
+               {category}
+             </span>
+           ))}
+           {post.categories.length > 3 && (
+             <span class="text-xs font-medium bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-full justify-center">
+               ...
+             </span>
+           )}
+         </>
+       )}
       </div>
     </article>
   ))}

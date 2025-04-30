@@ -12,6 +12,7 @@ type CombinedPost = {
 	categories?: string[];
 	isZenn: boolean;
 	url: string;
+	ai_generated?: boolean; // AI生成フラグを追加
 };
 
 // コンテンツコレクションから記事を取得
@@ -25,6 +26,7 @@ const localPosts: CombinedPost[] = posts.map((post) => ({
 	categories: post.data.categories || [],
 	isZenn: false,
 	url: `/posts/${post.slug}`,
+	ai_generated: post.data.ai_generated ?? false, // AI生成フラグを追加
 }));
 
 // zenn-posts.tsからZenn記事を取得 (非同期関数を呼び出し)
@@ -36,6 +38,7 @@ const zennCombinedPosts: CombinedPost[] = zennPosts.map((post) => ({
 	categories: [], // カテゴリー情報がない場合は空配列
 	isZenn: true,
 	url: post.url,
+	ai_generated: false, // Zenn記事はAI生成ではない
 }));
 
 // すべての記事を統合し、日付順にソート

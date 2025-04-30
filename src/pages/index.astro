@@ -10,27 +10,41 @@ import { Icon } from "astro-icon/components";
 
 // ローカルのブログ記事を取得
 const allLocalPosts = await getCollection("blog");
+// Map local posts to match PostList props structure
 const localPosts = allLocalPosts.map((post) => ({
-	title: post.data.title,
+	title: post.data.title ?? "Untitled", // Provide default value
 	slug: post.slug,
-	date: post.data.pubDate,
+	date: post.data.pubDate ?? new Date(0), // Provide default value (Epoch)
 	url: `/posts/${post.slug}`,
-	isExternal: false,
-	categories: post.data.categories,
+	isExternal: false, // Match PostList prop (optional)
+	isZenn: false, // Match PostList prop (optional)
+	categories: post.data.categories, // Match PostList prop (optional)
+	ai_generated: post.data.ai_generated ?? false, // Match PostList prop (optional)
 }));
 
 // Zennの記事を取得 (非同期関数を呼び出し)
 const zennPosts = await getZennPosts();
+// Map Zenn posts to match PostList props structure
 const zennFormattedPosts = zennPosts.map((post) => ({
-	...post,
+	title: post.title,
+	slug: post.slug,
 	date: post.pubDate,
-	isExternal: true,
-	isZenn: true,
+	url: post.url,
+	isExternal: true, // Match PostList prop (optional)
+	isZenn: true, // Match PostList prop (optional)
+	categories: [], // Match PostList prop (optional)
+	ai_generated: false, // Match PostList prop (optional)
 }));
 
 // すべての記事を結合して日付順に並べ替え、上位5件を取得
+// Combine and sort posts. The resulting type should now match PostList expectations.
 const allPosts = [...localPosts, ...zennFormattedPosts]
-	.sort((a, b) => b.date.getTime() - a.date.getTime())
+	.sort((a, b) => {
+		// Handle potential undefined dates safely
+		const dateA = a.date?.getTime() ?? 0;
+		const dateB = b.date?.getTime() ?? 0;
+		return dateB - dateA;
+	})
 	.slice(0, 5);
 
 const birthDate = new Date("1999-09-27");

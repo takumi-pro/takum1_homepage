@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, pubDate, description, categories } = entry.data;
+const { title, pubDate, description, categories, ai_generated } = entry.data; // ai_generated を取得
 ---
 
 <Layout title={title}>
@@ -45,6 +45,14 @@ const { title, pubDate, description, categories } = entry.data;
               {category}
             </span>
           ))}
+        </div>
+      )}
+
+      {/* AI生成記事の注意書き */}
+      {ai_generated && (
+        <div class="bg-purple-100 border-l-4 border-purple-500 text-purple-700 p-4 my-6" role="alert">
+          <p class="font-bold">AI生成コンテンツに関する注意</p>
+          <p>この記事はAIによって生成された内容を含みます。情報の正確性については十分にご注意ください。</p>
         </div>
       )}
       
